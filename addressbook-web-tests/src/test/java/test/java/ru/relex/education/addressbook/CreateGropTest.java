@@ -3,26 +3,16 @@ package test.java.ru.relex.education.addressbook;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
-import static org.junit.Assert.*;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
+
 import java.util.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class CreateGropTest {
   private WebDriver driver;
@@ -37,12 +27,20 @@ public class CreateGropTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
 
+    login("admin", "secret");
+  }
+
+  private void login(String username, String password) {
     driver.get("http://localhost/addressbook/group.php");
     driver.manage().window().setSize(new Dimension(942, 576));
     driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).sendKeys("admin");
-    driver.findElement(By.name("pass")).sendKeys("secret");
+    driver.findElement(By.name("user")).sendKeys(username);
+    driver.findElement(By.name("pass")).sendKeys(password);
     driver.findElement(By.cssSelector("input:nth-child(7)")).click();
+  }
+
+  private void gotoGroupPage() {
+
   }
 
   @After
@@ -52,17 +50,33 @@ public class CreateGropTest {
 
   @Test
   public void testGropCreation() {
+    gotoGroupPage();
+    initGroupCreation();
+    fillGroupForm(new GroupData("test1", "test2", "test3"));
+    submitGroupCreate();
+    returnToGroupPage();
+    driver.findElement(By.cssSelector("html")).click();
+    driver.findElement(By.cssSelector("html")).click();
+  }
 
-    driver.findElement(By.name("new")).click();
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).sendKeys("test1");
-    driver.findElement(By.name("group_header")).click();
-    driver.findElement(By.name("group_header")).sendKeys("test2");
-    driver.findElement(By.name("group_footer")).click();
-    driver.findElement(By.name("group_footer")).sendKeys("test3");
-    driver.findElement(By.name("submit")).click();
+  private void returnToGroupPage() {
     driver.findElement(By.linkText("group page")).click();
-    driver.findElement(By.cssSelector("html")).click();
-    driver.findElement(By.cssSelector("html")).click();
+  }
+
+  private void submitGroupCreate() {
+    driver.findElement(By.name("submit")).click();
+  }
+
+  private void fillGroupForm(GroupData groupData) {
+    driver.findElement(By.name("group_name")).click();
+    driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
+    driver.findElement(By.name("group_header")).click();
+    driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+    driver.findElement(By.name("group_footer")).click();
+    driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooret());
+  }
+
+  private void initGroupCreation() {
+    driver.findElement(By.name("new")).click();
   }
 }
