@@ -24,31 +24,35 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 public class CreateGropTest {
   private WebDriver driver;
 
   private Map<String, Object> vars;
   JavascriptExecutor js;
+
   @Before
   public void setUp() {
     System.setProperty("webdriver.chrome.driver", "D:/WORK/Tester/Java_Selenium/EducRepo2/chromedriver_win32/chromedriver.exe");
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
-  }
-  @After
-  public void tearDown() {
-    driver.quit();
-  }
-  @Test
-  public void testGropCreation() {
+
     driver.get("http://localhost/addressbook/group.php");
     driver.manage().window().setSize(new Dimension(942, 576));
     driver.findElement(By.name("user")).click();
     driver.findElement(By.name("user")).sendKeys("admin");
     driver.findElement(By.name("pass")).sendKeys("secret");
     driver.findElement(By.cssSelector("input:nth-child(7)")).click();
+  }
+
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+
+  @Test
+  public void testGropCreation() {
+
     driver.findElement(By.name("new")).click();
     driver.findElement(By.name("group_name")).click();
     driver.findElement(By.name("group_name")).sendKeys("test1");
