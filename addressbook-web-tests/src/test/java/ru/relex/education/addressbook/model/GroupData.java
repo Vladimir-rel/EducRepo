@@ -1,4 +1,4 @@
-package test.java.ru.relex.education.addressbook;
+package ru.relex.education.addressbook.model;
 
 public class GroupData {
   private final String name;
