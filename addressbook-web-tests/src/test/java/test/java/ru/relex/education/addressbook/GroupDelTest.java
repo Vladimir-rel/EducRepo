@@ -33,7 +33,7 @@ public class GroupDelTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
-  
+
   @After
   public void tearDown() {
     driver.quit();
