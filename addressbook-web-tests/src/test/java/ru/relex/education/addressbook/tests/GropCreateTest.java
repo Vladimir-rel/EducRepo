@@ -7,7 +7,7 @@ public class GropCreateTest extends TestBase{
 
   @Test
   public void testGropCreation() {
-    app.gotoGroupPage();
+    app.getNavigationHelper().gotoGroupPage();
     app.getGroupsHelperr().initGroupCreation();
     app.getGroupsHelperr().fillGroupForm(new GroupData("test1", "test2", "test3"));
     app.getGroupsHelperr().submitGroupCreate();

@@ -9,41 +9,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GroupsHelperr {
-  protected WebDriver driver;
+
+  private WebDriver wd;
   JavascriptExecutor js;
   private Map<String, Object> vars;
 
-  GroupsHelperr(){
-    js = (JavascriptExecutor) driver;
+  GroupsHelperr(WebDriver wd){
+    js = (JavascriptExecutor) wd;
     vars = new HashMap<String, Object>();
+    this.wd = wd;
   }
 
   public void returnToGroupPage() {
-    driver.findElement(By.linkText("group page")).click();
+    wd.findElement(By.linkText("group page")).click();
   }
 
   public void submitGroupCreate() {
-    driver.findElement(By.name("submit")).click();
+    wd.findElement(By.name("submit")).click();
   }
 
   public void fillGroupForm(GroupData groupData) {
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
-    driver.findElement(By.name("group_header")).click();
-    driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-    driver.findElement(By.name("group_footer")).click();
-    driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooret());
+    wd.findElement(By.name("group_name")).click();
+    wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
+    wd.findElement(By.name("group_header")).click();
+    wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+    wd.findElement(By.name("group_footer")).click();
+    wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooret());
   }
 
   public void initGroupCreation() {
-    driver.findElement(By.name("new")).click();
+    wd.findElement(By.name("new")).click();
   }
 
   public void deleteSelectedGroups() {
-    driver.findElement(By.name("delete")).click();
+    wd.findElement(By.name("delete")).click();
   }
 
   public void seectGroup() {
-    driver.findElement(By.name("selected[]")).click();
+    wd.findElement(By.name("selected[]")).click();
   }
 }
