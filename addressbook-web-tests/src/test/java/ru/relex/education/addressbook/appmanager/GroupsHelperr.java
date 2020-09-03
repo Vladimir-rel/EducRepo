@@ -1,26 +1,17 @@
 package ru.relex.education.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import ru.relex.education.addressbook.model.GroupData;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GroupsHelperr extends HelperBase {
-
-  JavascriptExecutor js;
-  private Map<String, Object> vars;
 
   GroupsHelperr(WebDriver wd){
     super(wd);
-    js = (JavascriptExecutor) wd;
-    vars = new HashMap<String, Object>();
   }
 
   public void returnToGroupPage() {
-    click(By.linkText("group page"));
+    click(By.linkText("GROUPS"));
   }
 
   public void submitGroupCreate() {
@@ -28,9 +19,9 @@ public class GroupsHelperr extends HelperBase {
   }
 
   public void fillGroupForm(GroupData groupData) {
-    type("group_name", groupData.getName());
-    type("group_header", groupData.getHeader());
-    type("group_footer", groupData.getFooret());
+    type(By.name("group_name"), groupData.getName());
+    type(By.name("group_header"), groupData.getHeader());
+    type(By.name("group_footer"), groupData.getFooret());
   }
 
   public void initGroupCreation() {
@@ -41,7 +32,7 @@ public class GroupsHelperr extends HelperBase {
     click(By.name("delete"));
   }
 
-  public void seectGroup() {
+  public void selectGroup() {
     click(By.name("selected[]"));
   }
 }

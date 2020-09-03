@@ -1,7 +1,6 @@
 package ru.relex.education.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 
 public class SessionHelper extends HelperBase {

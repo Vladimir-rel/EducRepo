@@ -3,7 +3,7 @@ package ru.relex.education.addressbook.tests;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.GroupData;
 
-public class GropCreateTest extends TestBase{
+public class GroupCreateTest extends TestBase{
 
   @Test
   public void testGropCreation() {

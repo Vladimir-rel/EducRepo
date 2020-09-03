@@ -10,10 +10,15 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupsHelperr groupHelperr;
+  private ContactsHelperr contactHelperr;
   WebDriver wd;
 
   public GroupsHelperr getGroupsHelperr() {
     return groupHelperr;
+  }
+
+  public ContactsHelperr getContactsHelperr() {
+    return contactHelperr;
   }
 
   public void init() {
@@ -22,6 +27,7 @@ public class ApplicationManager {
     wd.get("http://localhost/addressbook/group.php");
     wd.manage().window().setSize(new Dimension(942, 576));
     groupHelperr = new GroupsHelperr(wd);
+    contactHelperr = new ContactsHelperr(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     sessionHelper.login("admin", "secret");
