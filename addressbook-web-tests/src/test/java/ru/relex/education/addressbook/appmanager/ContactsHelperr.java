@@ -28,7 +28,25 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void returnToContactPage() {
-    click(By.name("home"));
+    click(By.linkText("HOME"));
   }
 
+  public void selectContact() {
+    //click(By.name("selected[]"));
+    //click(By.id("6"));
+    click(By.xpath("//tr[6]/td/input"));
+
+  }
+  public void initContactModification() {
+    click(By.xpath ("//table[@id='maintable']/tbody/tr[6]/td[8]/a/img"));
+    //click(By.cssSelector("tr:nth-child(6) > .center:nth-child(8) img"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.cssSelector(".left:nth-child(8) > input"));
+  }
 }
