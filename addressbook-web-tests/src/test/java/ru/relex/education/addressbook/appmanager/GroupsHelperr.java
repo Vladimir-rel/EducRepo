@@ -8,44 +8,40 @@ import ru.relex.education.addressbook.model.GroupData;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GroupsHelperr {
+public class GroupsHelperr extends HelperBase {
 
-  private WebDriver wd;
   JavascriptExecutor js;
   private Map<String, Object> vars;
 
   GroupsHelperr(WebDriver wd){
+    super(wd);
     js = (JavascriptExecutor) wd;
     vars = new HashMap<String, Object>();
-    this.wd = wd;
   }
 
   public void returnToGroupPage() {
-    wd.findElement(By.linkText("group page")).click();
+    click(By.linkText("group page"));
   }
 
   public void submitGroupCreate() {
-    wd.findElement(By.name("submit")).click();
+    click(By.name("submit"));
   }
 
   public void fillGroupForm(GroupData groupData) {
-    wd.findElement(By.name("group_name")).click();
-    wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
-    wd.findElement(By.name("group_header")).click();
-    wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-    wd.findElement(By.name("group_footer")).click();
-    wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooret());
+    type("group_name", groupData.getName());
+    type("group_header", groupData.getHeader());
+    type("group_footer", groupData.getFooret());
   }
 
   public void initGroupCreation() {
-    wd.findElement(By.name("new")).click();
+    click(By.name("new"));
   }
 
   public void deleteSelectedGroups() {
-    wd.findElement(By.name("delete")).click();
+    click(By.name("delete"));
   }
 
   public void seectGroup() {
-    wd.findElement(By.name("selected[]")).click();
+    click(By.name("selected[]"));
   }
 }

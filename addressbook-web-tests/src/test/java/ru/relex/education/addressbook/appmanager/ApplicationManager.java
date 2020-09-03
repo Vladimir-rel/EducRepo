@@ -20,6 +20,7 @@ public class ApplicationManager {
     System.setProperty("webdriver.chrome.driver", "D:/WORK/Tester/Java_Selenium/EducRepo2/chromedriver_win32/chromedriver.exe");
     wd = new ChromeDriver();
     wd.get("http://localhost/addressbook/group.php");
+    wd.manage().window().setSize(new Dimension(942, 576));
     groupHelperr = new GroupsHelperr(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
