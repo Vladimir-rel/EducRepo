@@ -12,7 +12,6 @@ public class HelperBase {
 
   protected void click(By locator) {
     wd.findElement(locator).click();
-    wd.switchTo().alert().accept();
   }
 
   protected void type(By locator, String text) {

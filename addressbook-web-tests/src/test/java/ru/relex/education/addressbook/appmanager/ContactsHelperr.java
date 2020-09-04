@@ -49,4 +49,8 @@ public class ContactsHelperr extends HelperBase {
   public void deleteSelectedContact() {
     click(By.cssSelector(".left:nth-child(8) > input"));
   }
+
+  public void closeAlertDelete() {
+    wd.switchTo().alert().accept();
+  }
 }

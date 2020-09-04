@@ -5,6 +5,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public class ApplicationManager {
 
   private SessionHelper sessionHelper;
@@ -21,7 +23,7 @@ public class ApplicationManager {
     return contactHelperr;
   }
 
-  public void init() {
+  public void init() throws InterruptedException {
     System.setProperty("webdriver.chrome.driver", "D:/WORK/Tester/Java_Selenium/EducRepo2/chromedriver_win32/chromedriver.exe");
     wd = new ChromeDriver();
     wd.get("http://localhost/addressbook/group.php");
@@ -30,6 +32,7 @@ public class ApplicationManager {
     contactHelperr = new ContactsHelperr(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+    TimeUnit.SECONDS.sleep(5);
     sessionHelper.login("admin", "secret");
   }
 

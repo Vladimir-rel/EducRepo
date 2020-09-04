@@ -9,7 +9,7 @@ public class TestBase {
   protected final ApplicationManager app = new ApplicationManager();
 
   @Before
-  public void setUp() {
+  public void setUp() throws InterruptedException {
     app.init();
   }
 
