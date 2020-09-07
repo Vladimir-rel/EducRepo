@@ -41,6 +41,7 @@ public class ApplicationManager {
     } else if (browser == BrowserType.IE) {
       wd = new InternetExplorerDriver();
     }
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 
     wd.get("http://localhost/addressbook/group.php");
     wd.manage().window().setSize(new Dimension(942, 576));
