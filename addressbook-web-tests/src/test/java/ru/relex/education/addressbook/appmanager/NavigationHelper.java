@@ -19,7 +19,7 @@ public class NavigationHelper extends  HelperBase {
   }
 
   public void gotoContactPage() {
-    if (isElementPresent(By.id("maintable"))){
+    if (isElementPresent(By.name("LASTNAME"))){
       return;
     }
     click(By.linkText("HOME"));

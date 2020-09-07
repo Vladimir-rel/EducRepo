@@ -7,8 +7,8 @@ import ru.relex.education.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  //protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
-  protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+  protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  //protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
   @Before
   public void setUp() throws InterruptedException {

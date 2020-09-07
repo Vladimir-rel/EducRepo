@@ -43,11 +43,11 @@ public class ContactsHelperr extends HelperBase {
   public void selectContact() {
     //click(By.name("selected[]"));
     //click(By.id("6"));
-    click(By.xpath("//tr[4]/td/input"));
+    click(By.xpath("//tr[2]/td/input"));
 
   }
   public void initContactModification() {
-    click(By.xpath ("//table[@id='maintable']/tbody/tr[4]/td[8]/a/img"));
+    click(By.xpath ("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     //click(By.cssSelector("tr:nth-child(6) > .center:nth-child(8) img"));
   }
 
@@ -61,5 +61,16 @@ public class ContactsHelperr extends HelperBase {
 
   public void closeAlertDelete() {
     wd.switchTo().alert().accept();
+  }
+
+  public boolean isContactExist() {
+    return isElementPresent(By.xpath("//tr[2]/td/input"));
+  }
+
+  public void createContact(ContactData contact) {
+    initContactCreation();
+    fillContactForm(contact, true);
+    submitContactCreate();
+    returnToContactPage();
   }
 }
