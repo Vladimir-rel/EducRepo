@@ -50,14 +50,14 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void selectContact() {
-    //click(By.name("selected[]"));
+    click(By.name("selected[]"));
     //click(By.id("6"));
-    click(By.xpath("//tr[2]/td/input"));
+    //click(By.xpath("//tr[2]/td/input"));
 
   }
   public void initContactModification() {
-    click(By.xpath ("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-    //click(By.cssSelector("tr:nth-child(6) > .center:nth-child(8) img"));
+    //click(By.xpath ("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    click(By.cssSelector("tr:nth-child(6) > .center:nth-child(8) img"));
   }
 
   public void submitContactModification() {
@@ -65,7 +65,8 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void deleteSelectedContact() {
-    click(By.cssSelector(".left:nth-child(8) > input"));
+    //click(By.cssSelector(".left:nth-child(8) > input"));
+    click(By.xpath("//div[2]/input"));
   }
 
   public void closeAlertDelete() {
