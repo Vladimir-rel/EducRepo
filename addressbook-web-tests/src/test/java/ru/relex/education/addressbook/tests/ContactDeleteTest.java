@@ -12,7 +12,6 @@ public class ContactDeleteTest extends TestBase {
   @Test
   public void testContactDelete() throws InterruptedException {
     app.getNavigationHelper().gotoContactPage();
-    TimeUnit.SECONDS.sleep(5);
     if (! app.getContactsHelperr().isContactExist()) {
       app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
     }
@@ -23,5 +22,8 @@ public class ContactDeleteTest extends TestBase {
     app.getContactsHelperr().returnToContactPage();
     List<ContactData> after = app.getContactsHelperr().getContactList();
     Assert.assertEquals(after.size(), before.size() - 1);
+
+    before.remove(before.size() - 1);
+    Assert.assertEquals(before, after);
   }
 }
