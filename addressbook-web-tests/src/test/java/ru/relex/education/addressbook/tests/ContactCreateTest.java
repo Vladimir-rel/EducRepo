@@ -3,14 +3,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class ContactCreateTest extends TestBase {
 
   @Test
   public void testContactCreation() {
     app.getNavigationHelper().gotoContactPage();
-    int before = app.getGroupsHelperr().getGroupCount();
-    app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", "Address 1", "899999999999999", "test1"));
-    int after = app.getGroupsHelperr().getGroupCount();
-    Assert.assertEquals(after, before + 1);
+    List<ContactData> before = app.getContactsHelperr().getContactList();
+    app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
+    List<ContactData> after = app.getContactsHelperr().getContactList();
+    Assert.assertEquals(after.size(), before.size() + 1);
   }
 }

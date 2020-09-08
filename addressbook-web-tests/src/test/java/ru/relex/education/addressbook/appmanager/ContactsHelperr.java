@@ -4,8 +4,13 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.relex.education.addressbook.model.ContactData;
+import ru.relex.education.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactsHelperr extends HelperBase {
 
@@ -14,7 +19,7 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void initContactCreation() {
-    click(By.linkText("ADD_NEW"));
+    click(By.linkText("add new"));
   }
 
   public void fillContactForm(ContactData contactData, boolean creation) {
@@ -26,7 +31,11 @@ public class ContactsHelperr extends HelperBase {
     type(By.name("home"), contactData.getPhone());
 
     if (creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroup() == null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
+      } else {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -37,7 +46,7 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void returnToContactPage() {
-    click(By.linkText("HOME"));
+    click(By.linkText("home"));
   }
 
   public void selectContact() {
@@ -64,7 +73,7 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public boolean isContactExist() {
-    return isElementPresent(By.xpath("//tr[2]/td/input"));
+    return isElementPresent(By.name("selected[]"));
   }
 
   public void createContact(ContactData contact) {
@@ -72,5 +81,21 @@ public class ContactsHelperr extends HelperBase {
     fillContactForm(contact, true);
     submitContactCreate();
     returnToContactPage();
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+    //return wd.findElements(By.xpath("//td/input")).size();
+  }
+
+  public List<ContactData> getContactList() {
+      List<ContactData> contacts = new ArrayList<ContactData>();
+      List<WebElement> elements = wd.findElements(By.name("selected[]"));
+      for (WebElement element : elements) {
+        String name = element.getText();
+        ContactData contact = new ContactData(name, null, null, null, null, null);
+        contacts.add(contact);
+      }
+      return contacts;
   }
 }

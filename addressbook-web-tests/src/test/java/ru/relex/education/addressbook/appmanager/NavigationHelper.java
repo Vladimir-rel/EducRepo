@@ -15,13 +15,13 @@ public class NavigationHelper extends  HelperBase {
             && isElementPresent(By.tagName("new"))){
       return;
     }
-    click(By.linkText("GROUPS"));
+    click(By.linkText("groups"));
   }
 
   public void gotoContactPage() {
     if (isElementPresent(By.name("LASTNAME"))){
       return;
     }
-    click(By.linkText("HOME"));
+    click(By.linkText("home"));
   }
 }

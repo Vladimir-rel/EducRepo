@@ -2,7 +2,11 @@ package ru.relex.education.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.relex.education.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupsHelperr extends HelperBase {
 
@@ -11,7 +15,7 @@ public class GroupsHelperr extends HelperBase {
   }
 
   public void returnToGroupPage() {
-    click(By.linkText("GROUPS"));
+    click(By.linkText("groups"));
   }
 
   public void submitGroupCreate() {
@@ -32,8 +36,8 @@ public class GroupsHelperr extends HelperBase {
     click(By.name("delete"));
   }
 
-  public void selectGroup() {
-    click(By.name("selected[]"));
+  public void selectGroup(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initGroupModification() {
@@ -57,5 +61,16 @@ public class GroupsHelperr extends HelperBase {
 
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<GroupData> getGroupList() {
+    List<GroupData> groups = new ArrayList<GroupData>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    for (WebElement element : elements) {
+      String name = element.getText();
+      GroupData group = new GroupData(name, null, null);
+      groups.add(group);
+    }
+    return groups;
   }
 }

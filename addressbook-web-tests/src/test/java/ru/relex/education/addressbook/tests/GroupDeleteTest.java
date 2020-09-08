@@ -4,20 +4,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.GroupData;
 
+import java.util.List;
+
 public class GroupDeleteTest extends TestBase{
 
   @Test
   public void testGroupDelete() {
     app.getNavigationHelper().gotoGroupPage();
-    int before = app.getGroupsHelperr().getGroupCount();
     if (! app.getGroupsHelperr().isGroupExist()) {
       app.getGroupsHelperr().createGroup(new GroupData("test1", null, null));
-      before = 1;
     }
-    app.getGroupsHelperr().selectGroup();
+    List<GroupData> before = app.getGroupsHelperr().getGroupList();
+    app.getGroupsHelperr().selectGroup(before.size() - 1);
     app.getGroupsHelperr().deleteSelectedGroups();
     app.getGroupsHelperr().returnToGroupPage();
-    int after = app.getGroupsHelperr().getGroupCount();
-    Assert.assertEquals(after, before - 1);
+    List<GroupData> after = app.getGroupsHelperr().getGroupList();
+    Assert.assertEquals(after.size(), before.size() - 1);
   }
 }
