@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class GroupDeleteTest extends TestBase{
@@ -22,6 +23,6 @@ public class GroupDeleteTest extends TestBase{
     Assert.assertEquals(after.size(), before.size() - 1);
 
     before.remove(before.size() - 1);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }

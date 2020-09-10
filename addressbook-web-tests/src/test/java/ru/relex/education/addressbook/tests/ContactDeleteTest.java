@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.ContactData;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ContactDeleteTest extends TestBase {
 
@@ -16,7 +16,7 @@ public class ContactDeleteTest extends TestBase {
       app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
     }
     List<ContactData> before = app.getContactsHelperr().getContactList();
-    app.getContactsHelperr().selectContact();
+    app.getContactsHelperr().selectContact(before.size() - 1);
     app.getContactsHelperr().deleteSelectedContact();
     app.getContactsHelperr().closeAlertDelete();
     app.getContactsHelperr().returnToContactPage();
@@ -24,6 +24,6 @@ public class ContactDeleteTest extends TestBase {
     Assert.assertEquals(after.size(), before.size() - 1);
 
     before.remove(before.size() - 1);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }

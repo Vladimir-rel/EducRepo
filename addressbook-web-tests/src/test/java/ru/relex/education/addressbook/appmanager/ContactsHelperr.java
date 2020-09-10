@@ -2,12 +2,10 @@ package ru.relex.education.addressbook.appmanager;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.relex.education.addressbook.model.ContactData;
-import ru.relex.education.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +47,14 @@ public class ContactsHelperr extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public void selectContact() {
-    click(By.name("selected[]"));
-    //click(By.id("6"));
-    //click(By.xpath("//tr[2]/td/input"));
-
+  public int selectContact(int index) {
+    WebElement element = wd.findElements(By.name("selected[]")).get(index);
+    element.click();
+    return Integer.parseInt(element.getAttribute("value"));
   }
+
   public void initContactModification() {
-    //click(By.xpath ("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-    click(By.cssSelector("tr:nth-child(6) > .center:nth-child(8) img"));
+    click(By.xpath ("//img[@title='Edit']"));
   }
 
   public void submitContactModification() {
@@ -65,8 +62,7 @@ public class ContactsHelperr extends HelperBase {
   }
 
   public void deleteSelectedContact() {
-    //click(By.cssSelector(".left:nth-child(8) > input"));
-    click(By.xpath("//div[2]/input"));
+    click(By.xpath("//input[@value='Delete']"));
   }
 
   public void closeAlertDelete() {
@@ -75,6 +71,16 @@ public class ContactsHelperr extends HelperBase {
 
   public boolean isContactExist() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public int getElementIndex (List<ContactData> contacts, int contactId) {
+    int index = 0;
+    for (ContactData contact: contacts){
+      if (contact.getId() == contactId) {
+        index = contacts.indexOf(contact);
+      }
+    }
+    return index;
   }
 
   public void createContact(ContactData contact) {
@@ -86,15 +92,15 @@ public class ContactsHelperr extends HelperBase {
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
-    //return wd.findElements(By.xpath("//td/input")).size();
   }
 
   public List<ContactData> getContactList() {
       List<ContactData> contacts = new ArrayList<ContactData>();
-      List<WebElement> elements = wd.findElements(By.name("selected[]"));
+      List<WebElement> elements = wd.findElements(By.xpath("//tr/td/input/../.."));
       for (WebElement element : elements) {
-        String name = element.getText();
-        ContactData contact = new ContactData(name, null, null, null, null, null);
+        String name = element.findElement(By.xpath("./td[3]")).getText();
+        int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
+        ContactData contact = new ContactData(name, null, null, null, null, null, id);
         contacts.add(contact);
       }
       return contacts;

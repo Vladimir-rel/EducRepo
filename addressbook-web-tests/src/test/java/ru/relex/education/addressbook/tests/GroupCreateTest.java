@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreateTest extends TestBase{
@@ -12,8 +13,19 @@ public class GroupCreateTest extends TestBase{
   public void testGropCreation() {
     app.getNavigationHelper().gotoGroupPage();
     List<GroupData> before = app.getGroupsHelperr().getGroupList();
-    app.getGroupsHelperr().createGroup(new GroupData("test1", null, "test3"));
+    GroupData group = new GroupData("test1Mod", null, "test3Mod", before.get(0).getId());
+    app.getGroupsHelperr().createGroup(group);
     List<GroupData> after = app.getGroupsHelperr().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
+
+    int max = 0;
+    for (GroupData g: after) {
+      if (g.getId() > max) {
+        max = g.getId();
+      }
+    }
+    group.setId(max);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }

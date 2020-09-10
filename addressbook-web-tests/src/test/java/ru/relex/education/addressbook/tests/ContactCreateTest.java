@@ -3,6 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.relex.education.addressbook.model.ContactData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreateTest extends TestBase {
@@ -11,8 +12,18 @@ public class ContactCreateTest extends TestBase {
   public void testContactCreation() {
     app.getNavigationHelper().gotoContactPage();
     List<ContactData> before = app.getContactsHelperr().getContactList();
-    app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
+    ContactData contact = new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null);
+    app.getContactsHelperr().createContact(contact);
     List<ContactData> after = app.getContactsHelperr().getContactList();
-    Assert.assertEquals(after.size(), before.size() + 1);
+
+    int max = 0;
+    for (ContactData cont: after) {
+      if (cont.getId() > max) {
+        max = cont.getId();
+      }
+    }
+    contact.setId(max);
+    before.add(contact);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }
