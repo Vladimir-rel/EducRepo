@@ -20,13 +20,14 @@ public class ContactsHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void fillContactForm(ContactData contactData, boolean creation) {
+  public int fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirst_name());
     type(By.name("middlename"), contactData.getMiddle_name());
     type(By.name("address"), contactData.getAddress());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
     type(By.name("home"), contactData.getPhone());
+    int contactId = 0;
 
     if (creation){
       if (contactData.getGroup() == null) {
@@ -35,8 +36,10 @@ public class ContactsHelper extends HelperBase {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
       }
     } else {
+      contactId = Integer.parseInt(wd.findElement(By.xpath("//input[@name='id']")).getAttribute("value"));
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
+    return contactId;
   }
 
   public void submitContactCreate() {
@@ -47,10 +50,9 @@ public class ContactsHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public int selectContact(int index) {
+  public void selectContact(int index) {
     WebElement element = wd.findElements(By.name("selected[]")).get(index);
     element.click();
-    return Integer.parseInt(element.getAttribute("value"));
   }
 
   public void initContactModification() {
@@ -96,7 +98,7 @@ public class ContactsHelper extends HelperBase {
 
   public List<ContactData> getContactList() {
       List<ContactData> contacts = new ArrayList<ContactData>();
-      List<WebElement> elements = wd.findElements(By.xpath("//tr/td/input/../.."));
+      List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
       for (WebElement element : elements) {
         String name = element.findElement(By.xpath("./td[3]")).getText();
         int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));

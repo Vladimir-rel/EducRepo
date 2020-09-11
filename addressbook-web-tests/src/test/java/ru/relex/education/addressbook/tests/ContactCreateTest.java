@@ -5,7 +5,6 @@ import org.junit.Test;
 import ru.relex.education.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreateTest extends TestBase {

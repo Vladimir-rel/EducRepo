@@ -17,10 +17,11 @@ public class ContactModificationTest extends TestBase {
       app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
     }
     List<ContactData> before = app.getContactsHelperr().getContactList();
-    int contactId = app.getContactsHelperr().selectContact(before.size() - 1);
+    app.getContactsHelperr().selectContact(before.size() - 1);
     app.getContactsHelperr().initContactModification();
-    ContactData contact = new ContactData("First NameMod", "Middle Namecontact", "Companycontact", null, null, null, contactId);
-    app.getContactsHelperr().fillContactForm(contact, false);
+    ContactData contact = new ContactData("First NameMod", "Middle Namecontact", "Companycontact", null, null, null);
+    int contactId = app.getContactsHelperr().fillContactForm(contact, false);
+    contact.setId(contactId);
     app.getContactsHelperr().submitContactModification();
     app.getContactsHelperr().returnToContactPage();
     List<ContactData> after = app.getContactsHelperr().getContactList();
