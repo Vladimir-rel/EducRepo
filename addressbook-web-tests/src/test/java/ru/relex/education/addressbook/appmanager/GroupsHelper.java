@@ -8,9 +8,9 @@ import ru.relex.education.addressbook.model.GroupData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupsHelperr extends HelperBase {
+public class GroupsHelper extends HelperBase {
 
-  GroupsHelperr(WebDriver wd){
+  GroupsHelper(WebDriver wd){
     super(wd);
   }
 

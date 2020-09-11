@@ -12,8 +12,8 @@ public class ApplicationManager {
 
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
-  private GroupsHelperr groupHelperr;
-  private ContactsHelperr contactHelperr;
+  private GroupsHelper groupHelperr;
+  private ContactsHelper contactHelperr;
   String browser;
   WebDriver wd;
 
@@ -21,11 +21,11 @@ public class ApplicationManager {
     this.browser = browser;
   }
 
-  public GroupsHelperr getGroupsHelperr() {
+  public GroupsHelper getGroupsHelperr() {
     return groupHelperr;
   }
 
-  public ContactsHelperr getContactsHelperr() {
+  public ContactsHelper getContactsHelperr() {
     return contactHelperr;
   }
 
@@ -39,8 +39,8 @@ public class ApplicationManager {
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
-    groupHelperr = new GroupsHelperr(wd);
-    contactHelperr = new ContactsHelperr(wd);
+    groupHelperr = new GroupsHelper(wd);
+    contactHelperr = new ContactsHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     //TimeUnit.SECONDS.sleep(5);

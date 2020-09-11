@@ -10,9 +10,9 @@ import ru.relex.education.addressbook.model.ContactData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsHelperr extends HelperBase {
+public class ContactsHelper extends HelperBase {
 
-  public ContactsHelperr(WebDriver wd) {
+  public ContactsHelper(WebDriver wd) {
     super(wd);
   }
 
