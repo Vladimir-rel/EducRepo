@@ -9,20 +9,15 @@ import ru.relex.education.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
-  //protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  protected final static ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
   //protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
-  //@BeforeSuite
-  //@BeforeTest
-  @BeforeMethod
+  @BeforeSuite
   public void setUp() throws InterruptedException {
     app.init();
   }
 
-  //@AfterSuite
-  //@AfterTest
-  @AfterMethod
+  @AfterSuite
   public void tearDown() {
     app.stop();
   }
