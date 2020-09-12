@@ -3,32 +3,47 @@ package ru.relex.education.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private final String first_name;
-  private final String middle_name;
-  private final String company;
-  private final String address;
-  private final String phone;
-  private final String group;
-  private int id;
+  private String first_name;
+  private String middle_name;
+  private String company;
+  private String address;
+  private String phone;
+  private String group;
+  private int id = 0;
 
-  public ContactData(String first_name, String middle_name, String company, String address, String phone, String group) {
+  public ContactData withFirst_name(String first_name) {
     this.first_name = first_name;
-    this.middle_name = middle_name;
-    this.company = company;
-    this.address = address;
-    this.phone = phone;
-    this.group = group;
-    this.id = 0;
+    return this;
   }
 
-  public ContactData(String first_name, String middle_name, String company, String address, String phone, String group, int id) {
-    this.first_name = first_name;
+  public ContactData withMiddle_name(String middle_name) {
     this.middle_name = middle_name;
+    return this;
+  }
+
+  public ContactData withCompany(String company) {
     this.company = company;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public ContactData withPhone(String phone) {
     this.phone = phone;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
   }
 
   public String getFirst_name() {
@@ -59,7 +74,6 @@ public class ContactData {
     return id;
   }
 
-  public void setId(int id) { this.id = id; }
 
   @Override
   public String toString() {

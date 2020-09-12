@@ -25,10 +25,10 @@ public class GroupDeleteTest extends TestBase{
     int index = before.size() - 1;
     app.group().delete(index);
     List<GroupData> after = app.group().list();
-    //compare elements count
+    //compare lists count
     Assert.assertEquals(after.size(), before.size() - 1);
     before.remove(index);
-    //compare elements
+    //compare lists
     Assert.assertEquals(before, after);
   }
 }

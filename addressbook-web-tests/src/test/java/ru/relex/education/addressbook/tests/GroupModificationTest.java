@@ -25,15 +25,12 @@ public class GroupModificationTest extends TestBase {
     int index = before.size() - 1;
     GroupData group = new GroupData().withId(before.get(index).getId()).withName("testMod1").withHeader("testMod2").withFooret("testMod3");
     app.group().modify(index, group);
-
-    //compare lists element count
+    //compare lists count
     List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size());
-
     //change group in "before" list
     before.remove(index);
     before.add(group);
-
     //sort and compare lists
     Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
     before.sort(byId);

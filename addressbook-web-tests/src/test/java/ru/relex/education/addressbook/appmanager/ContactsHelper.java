@@ -102,7 +102,7 @@ public class ContactsHelper extends HelperBase {
       for (WebElement element : elements) {
         String name = element.findElement(By.xpath("./td[3]")).getText();
         int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
-        ContactData contact = new ContactData(name, null, null, null, null, null, id);
+        ContactData contact = new ContactData().withFirst_name(name).withId(id);
         contacts.add(contact);
       }
       return contacts;
@@ -119,7 +119,7 @@ public class ContactsHelper extends HelperBase {
     selectContact(index);
     initContactModification();
     int contactId = fillContactForm(contact, false);
-    contact.setId(contactId);
+    contact.withId(contactId);
     submitContactModification();
     returnToContactPage();
     return contactId;
