@@ -5,24 +5,9 @@ import java.util.Objects;
 public class GroupData {
 
   private int id;
-  private final String name;
-  private final String header;
-  private final String fooret;
-
-  public GroupData(String name, String header, String fooret, int id) {
-    this.name = name;
-    this.header = header;
-    this.fooret = fooret;
-    this.id = id;
-  }
-
-  public GroupData(String name, String header, String fooret) {
-    this.name = name;
-    this.header = header;
-    this.fooret = fooret;
-    this.id = 0;
-    //this.id = Integer.MAX_VALUE;
-  }
+  private String name;
+  private String header;
+  private String fooret;
 
   public String getName() {
     return name;
@@ -38,7 +23,25 @@ public class GroupData {
 
   public int getId() { return id; }
 
-  public void setId(int id) { this.id = id; }
+  public GroupData withId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public GroupData withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public GroupData withHeader(String header) {
+    this.header = header;
+    return this;
+  }
+
+  public GroupData withFooret(String fooret) {
+    this.fooret = fooret;
+    return this;
+  }
 
   @Override
   public String toString() {

@@ -1,31 +1,32 @@
 package ru.relex.education.addressbook.tests;
 
 import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Test;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import ru.relex.education.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactDeleteTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().contactPage();
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
+    }
+  }
+
   @Test
   public void testContactDelete() throws InterruptedException {
-    app.getNavigationHelper().gotoContactPage();
-    if (! app.getContactsHelperr().isContactExist()) {
-      app.getContactsHelperr().createContact(new ContactData("First Name1", "Middle Name1", "Company 1", null, null, null));
-    }
-    List<ContactData> before = app.getContactsHelperr().getContactList();
-    app.getContactsHelperr().selectContact(before.size() - 1);
-    app.getContactsHelperr().deleteSelectedContact();
-    app.getContactsHelperr().closeAlertDelete();
-    app.getContactsHelperr().returnToContactPage();
-    List<ContactData> after = app.getContactsHelperr().getContactList();
+    ensurePreconditions();
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    app.contact().delete(index);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(before.size() - 1);
-
+    before.remove(index);
     Assert.assertEquals(before, after);
   }
 }

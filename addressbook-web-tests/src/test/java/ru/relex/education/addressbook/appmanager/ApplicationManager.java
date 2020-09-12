@@ -21,11 +21,11 @@ public class ApplicationManager {
     this.browser = browser;
   }
 
-  public GroupsHelper getGroupsHelperr() {
+  public GroupsHelper group() {
     return groupHelperr;
   }
 
-  public ContactsHelper getContactsHelperr() {
+  public ContactsHelper contact() {
     return contactHelperr;
   }
 
@@ -51,7 +51,7 @@ public class ApplicationManager {
     wd.quit();
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 }

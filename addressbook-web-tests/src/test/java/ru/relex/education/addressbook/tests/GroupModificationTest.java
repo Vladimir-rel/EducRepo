@@ -1,36 +1,37 @@
 package ru.relex.education.addressbook.tests;
 
 import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.relex.education.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupModificationTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData().withName("test"));
+    }
+  }
   @Test
   public void testGroupModification(){
-    app.getNavigationHelper().gotoGroupPage();
-
-    if (! app.getGroupsHelperr().isGroupExist()) {
-      app.getGroupsHelperr().createGroup(new GroupData("test", null, null));
-    }
-    List<GroupData> before = app.getGroupsHelperr().getGroupList();
-    app.getGroupsHelperr().selectGroup(before.size() - 1);
-    app.getGroupsHelperr().initGroupModification();
-    GroupData group = new GroupData("testMod1", "testMod2", "testMod3", before.get(before.size() - 1).getId());
-    app.getGroupsHelperr().fillGroupForm(group);
-    app.getGroupsHelperr().submitGroupModification();
-    app.getGroupsHelperr().returnToGroupPage();
+    ensurePreconditions();
+    List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
+    GroupData group = new GroupData().withId(before.get(index).getId()).withName("testMod1").withHeader("testMod2").withFooret("testMod3");
+    app.group().modify(index, group);
 
     //compare lists element count
-    List<GroupData> after = app.getGroupsHelperr().getGroupList();
+    List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size());
 
     //change group in "before" list
-    before.remove(before.size() - 1);
+    before.remove(index);
     before.add(group);
 
     //sort and compare lists
