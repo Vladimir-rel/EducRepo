@@ -3,25 +3,24 @@ package ru.relex.education.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private String first_name;
-  private String middle_name;
+  private String firstName;
+  private String lastName;
   private String company;
   private String address;
 
   private String homePhone;
-  private String phone;
   private String mobilePhone;
   private String workPhone;
   private String group;
   private int id = 0;
 
-  public ContactData withFirstName(String first_name) {
-    this.first_name = first_name;
+  public ContactData withFirstName(String firstName) {
+    this.firstName = firstName;
     return this;
   }
 
-  public ContactData withMiddleName(String middle_name) {
-    this.middle_name = middle_name;
+  public ContactData withLastName(String lastName) {
+    this.lastName = lastName;
     return this;
   }
 
@@ -32,11 +31,6 @@ public class ContactData {
 
   public ContactData withAddress(String address) {
     this.address = address;
-    return this;
-  }
-
-  public ContactData withPhone(String phone) {
-    this.phone = phone;
     return this;
   }
 
@@ -66,11 +60,11 @@ public class ContactData {
   }
 
   public String getFirstName() {
-    return first_name;
+    return firstName;
   }
 
-  public String getMiddleName() {
-    return middle_name;
+  public String getLastName() {
+    return lastName;
   }
 
   public String getCompany() {
@@ -93,10 +87,6 @@ public class ContactData {
     return workPhone;
   }
 
-  public String getPhone() {
-    return phone;
-  }
-
   public String getGroup() {
     return group;
   }
@@ -109,7 +99,7 @@ public class ContactData {
   public String toString() {
     return "ContactData{" +
             " id='" + id + '\'' +
-            ", first_name='" + first_name + '\'' +
+            ", firstName='" + firstName + '\'' +
             '}';
   }
 
@@ -118,12 +108,12 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(first_name, that.first_name) &&
+    return Objects.equals(firstName, that.firstName) &&
             Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(first_name, id);
+    return Objects.hash(firstName, id);
   }
 }

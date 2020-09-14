@@ -24,7 +24,6 @@ public class GroupModificationTest extends TestBase {
 
   @Test
   public void testGroupModification(){
-    ensurePreconditions();
     Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("testMod1").withHeader("testMod2").withFooret("testMod3");

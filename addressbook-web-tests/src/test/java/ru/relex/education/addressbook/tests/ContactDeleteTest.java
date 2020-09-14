@@ -15,13 +15,12 @@ public class ContactDeleteTest extends TestBase {
   public void ensurePreconditions() {
     app.goTo().contactPage();
     if (app.contact().сount() == 0) {
-      app.contact().create(new ContactData().withFirstName("First Name1").withMiddleName("Middle Name1").withCompany("Company 1"));
+      app.contact().create(new ContactData().withFirstName("First Name1").withLastName("Middle Name1").withCompany("Company 1"));
     }
   }
 
   @Test
   public void testContactDelete() throws InterruptedException {
-    ensurePreconditions();
     Contacts before = app.contact().all();
     ContactData deletedContact = before.iterator().next();
     app.contact().delete(deletedContact);

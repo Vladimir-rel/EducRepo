@@ -15,7 +15,7 @@ public class ContactCreateTest extends TestBase {
   public void testContactCreation() {
     app.goTo().contactPage();
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData().withFirstName("First Name1").withMiddleName("Middle Name1").withCompany("Company 1");
+    ContactData contact = new ContactData().withFirstName("First Name1").withLastName("Middle Name1").withCompany("Company 1");
     app.contact().create(contact);
     Contacts after = app.contact().all();
     //compare sets count

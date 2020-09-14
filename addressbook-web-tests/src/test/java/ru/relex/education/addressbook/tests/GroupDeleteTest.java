@@ -24,7 +24,6 @@ public class GroupDeleteTest extends TestBase{
 
   @Test
   public void testGroupDelete() {
-    ensurePreconditions();
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
