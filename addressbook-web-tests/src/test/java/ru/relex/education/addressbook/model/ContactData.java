@@ -8,18 +8,6 @@ public class ContactData {
   private String company;
   private String address;
 
-  public void setHomePhone(String homePhone) {
-    this.homePhone = homePhone;
-  }
-
-  public void setMobilePhone(String mobilePhone) {
-    this.mobilePhone = mobilePhone;
-  }
-
-  public void setWorkPhone(String workPhone) {
-    this.workPhone = workPhone;
-  }
-
   private String homePhone;
   private String phone;
   private String mobilePhone;
@@ -27,12 +15,12 @@ public class ContactData {
   private String group;
   private int id = 0;
 
-  public ContactData withFirst_name(String first_name) {
+  public ContactData withFirstName(String first_name) {
     this.first_name = first_name;
     return this;
   }
 
-  public ContactData withMiddle_name(String middle_name) {
+  public ContactData withMiddleName(String middle_name) {
     this.middle_name = middle_name;
     return this;
   }
@@ -62,11 +50,26 @@ public class ContactData {
     return this;
   }
 
-  public String getFirst_name() {
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
+  public String getFirstName() {
     return first_name;
   }
 
-  public String getMiddle_name() {
+  public String getMiddleName() {
     return middle_name;
   }
 
@@ -76,6 +79,18 @@ public class ContactData {
 
   public String getAddress() {
     return address;
+  }
+
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   public String getPhone() {

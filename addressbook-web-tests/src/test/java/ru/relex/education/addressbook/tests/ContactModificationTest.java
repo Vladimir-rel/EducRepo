@@ -15,7 +15,7 @@ public class ContactModificationTest extends TestBase {
   public void ensurePreconditions() {
     app.goTo().contactPage();
     if (app.contact().сount() == 0) {
-      app.contact().create(new ContactData().withFirst_name("First Name1").withMiddle_name("Middle Name1").withCompany("Company 1"));
+      app.contact().create(new ContactData().withFirstName("First Name1").withMiddleName("Middle Name1").withCompany("Company 1"));
     }
   }
 
@@ -24,7 +24,7 @@ public class ContactModificationTest extends TestBase {
     ensurePreconditions();
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
-    ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirst_name("First NameMod").withMiddle_name("Middle NameContactMod").withCompany("CompanyContactMod");
+    ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("First NameMod").withMiddleName("Middle NameContactMod").withCompany("CompanyContactMod");
     app.contact().modify(contact);
     Contacts after = app.contact().all();
     //compare sets count
