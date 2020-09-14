@@ -1,12 +1,16 @@
 package ru.relex.education.addressbook.tests;
 
-import org.junit.Assert;
 //import org.junit.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.relex.education.addressbook.model.GroupData;
+import ru.relex.education.addressbook.model.Groups;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTest extends TestBase {
 
@@ -21,17 +25,14 @@ public class GroupModificationTest extends TestBase {
   @Test
   public void testGroupModification(){
     ensurePreconditions();
-    Set<GroupData> before = app.group().all();
+    Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("testMod1").withHeader("testMod2").withFooret("testMod3");
     app.group().modify(group);
     //compare lists count
-    Set<GroupData> after = app.group().all();
-    Assert.assertEquals(after.size(), before.size());
-    //change group in "before" set
-    before.remove(modifiedGroup);
-    before.add(group);
+    Groups after = app.group().all();
+    assertEquals(after.size(), before.size());
     //sort and compare sets
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
   }
 }

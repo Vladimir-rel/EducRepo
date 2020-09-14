@@ -74,7 +74,6 @@ public class ContactData {
     return id;
   }
 
-
   @Override
   public String toString() {
     return "ContactData{" +
