@@ -55,8 +55,8 @@ public class ContactsHelper extends HelperBase {
     wd.findElement(By.xpath("//input[@id='" + index + "']")).click();
   }
 
-  public void initContactModification() {
-    click(By.xpath ("//img[@title='Edit']"));
+  public void initContactModification(int index) {
+    wd.findElement(By.xpath("//input[@id='" + index + "']/../../td[8]/a/img[@title='Edit']")).click();
   }
 
   public void submitContactModification() {
@@ -75,7 +75,7 @@ public class ContactsHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getContactCount() {
+  public int сount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
@@ -121,20 +121,9 @@ public class ContactsHelper extends HelperBase {
     returnToContactPage();
   }
 
-  public int modify(ContactData contact, int index) {
-    selectContact(index);
-    initContactModification();
-    int contactId = fillContactForm(contact, false);
-    contact.withId(contactId);
-    submitContactModification();
-    contactCache = null;
-    returnToContactPage();
-    return contactId;
-  }
-
   public void modify(ContactData contact) {
     selectContact(contact.getId());
-    initContactModification();
+    initContactModification(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
     contactCache = null;

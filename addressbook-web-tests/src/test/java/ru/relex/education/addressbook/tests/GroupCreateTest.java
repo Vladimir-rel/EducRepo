@@ -16,10 +16,24 @@ public class GroupCreateTest extends TestBase{
     Groups before = app.group().all();
     GroupData group = new GroupData().withName("test1");
     app.group().create(group);
+    //compare sets count
+    assertThat(app.group().count(), equalTo(before.size() + 1));
     Groups after = app.group().all();
     //set in new group ID for before set and compare sets
     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+  }
+
+  @Test
+  public void testBadGropCreation() {
+    app.goTo().groupPage();
+    Groups before = app.group().all();
+    GroupData group = new GroupData().withName("test1'");
+    app.group().create(group);
     //compare sets count
-    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(app.group().count(), equalTo(before.size()));
+    Groups after = app.group().all();
+    //set in new group ID for before set and compare sets
+    assertThat(after, equalTo(before));
+
   }
 }

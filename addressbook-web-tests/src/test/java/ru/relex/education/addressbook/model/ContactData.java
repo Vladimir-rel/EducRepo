@@ -7,7 +7,23 @@ public class ContactData {
   private String middle_name;
   private String company;
   private String address;
+
+  public void setHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+  }
+
+  public void setMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+  }
+
+  public void setWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+  }
+
+  private String homePhone;
   private String phone;
+  private String mobilePhone;
+  private String workPhone;
   private String group;
   private int id = 0;
 
