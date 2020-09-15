@@ -23,7 +23,9 @@ public class ContactModificationTest extends TestBase {
   public void testContactModification() throws InterruptedException {
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
-    ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("First Name1").withLastName("Last Name1").withCompany("Company 1").withHomePhone("111").withMobilePhone("222").withWorkPhone("333");
+    ContactData contact = new ContactData().withId(modifiedContact.getId())
+            .withFirstName("First Name1").withLastName("Last Name1").withCompany("Company 1")
+            .withHomePhone("111").withMobilePhone("222").withWorkPhone("333");
     app.contact().modify(contact);
     Contacts after = app.contact().all();
     //compare sets count
