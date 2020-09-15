@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupDataGenerator {
+
   public static void main(String[] args) throws IOException {
     int count = Integer.parseInt(args[0]);
     File file = new File(args[1]);
@@ -22,7 +23,7 @@ public class GroupDataGenerator {
   private static void save(List<GroupData> groups, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (GroupData group : groups) {
-      writer.write(String.format("%s;%s;$s\n", group.getName(), group.getHeader(), group.getFooret()));
+      writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooret()));
     }
     writer.close();
   }
