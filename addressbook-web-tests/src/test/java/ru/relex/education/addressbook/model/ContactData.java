@@ -1,5 +1,6 @@
 package ru.relex.education.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -19,6 +20,7 @@ public class ContactData {
   private String eMailAll;
   private String group;
   private int id = 0;
+  private File photo;
 
   public ContactData withFirstName(String firstName) {
     this.firstName = firstName;
@@ -89,6 +91,11 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
   public String getFirstName() {
     return firstName;
   }
@@ -136,6 +143,8 @@ public class ContactData {
   public String getEmail2() { return eMail2; }
 
   public String getEmail1() { return eMail1; }
+
+  public File getPhoto() { return photo; }
 
   @Override
   public String toString() {

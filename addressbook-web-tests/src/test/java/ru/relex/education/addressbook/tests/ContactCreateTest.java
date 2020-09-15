@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.relex.education.addressbook.model.ContactData;
 import ru.relex.education.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -15,7 +17,14 @@ public class ContactCreateTest extends TestBase {
   public void testContactCreation() {
     app.goTo().contactPage();
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData().withFirstName("First Name1").withLastName("Last Name1").withCompany("Company 1").withHomePhone("111").withMobilePhone("222").withWorkPhone("333");
+    File photo = new File("src/test/resources/1.jpg");
+    ContactData contact = new ContactData().withFirstName("First Name1")
+            .withLastName("Last Name1")
+            .withCompany("Company 1")
+            .withHomePhone("111")
+            .withMobilePhone("222")
+            .withWorkPhone("333")
+            .withPhoto(photo);
     app.contact().create(contact);
     Contacts after = app.contact().all();
     //compare sets count
