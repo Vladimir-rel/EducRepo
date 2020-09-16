@@ -1,19 +1,24 @@
 package ru.relex.education.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
+  @Expose
   private String firstName;
+  @Expose
   private String lastName;
   private String company;
+  @Expose
   private String address;
-
+  @Expose
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
   private String allPhone;
-
+  @Expose
   private String eMail1;
   private String eMail2;
   private String eMail3;
