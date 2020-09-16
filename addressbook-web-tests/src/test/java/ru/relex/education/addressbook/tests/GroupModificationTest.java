@@ -6,8 +6,6 @@ import org.testng.annotations.Test;
 import ru.relex.education.addressbook.model.GroupData;
 import ru.relex.education.addressbook.model.Groups;
 
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.assertEquals;
