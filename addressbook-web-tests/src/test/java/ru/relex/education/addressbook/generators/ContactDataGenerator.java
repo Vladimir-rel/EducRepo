@@ -39,14 +39,10 @@ public class ContactDataGenerator {
 
   private void run() throws IOException {
     List<ContactData> contacts = generateContacts(count);
-    if (format.equals("csv")) {
-      saveAsCsv(contacts, new File(file));
-    } else if (format.equals("xml")) {
-      saveAsXml(contacts, new File(file));
-    } else if (format.equals("json")) {
+    if (format.equals("json")) {
       saveAsJson(contacts, new File(file));
     } else {
-      System.out.println("Unrecognized format - " + format);
+      System.out.println("Unrecognized or unsupported format - " + format);
     }
   }
 
@@ -55,24 +51,6 @@ public class ContactDataGenerator {
     String json = gson.toJson(contacts);
     Writer writer = new FileWriter(file);
     writer.write(json);
-    writer.close();
-  }
-
-  private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
-    XStream xstream = new XStream();
-    xstream.processAnnotations(ContactData.class);
-    xstream.alias("contact", ContactData.class);
-    String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
-  }
-
-  private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-    Writer writer = new FileWriter(file);
-    for (ContactData contact : contacts) {
-      writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getAddress(), contact.getHomePhone(), contact.getEmail1()));
-    }
     writer.close();
   }
 
