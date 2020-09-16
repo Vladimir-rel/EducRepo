@@ -9,8 +9,11 @@ dependencies{
 	implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-6'
 	implementation 'org.hamcrest:hamcrest:2.2'
 	implementation 'com.beust:jcommander:1.78'
+	implementation 'com.thoughtworks.xstream:xstream:1.4.8'
 }
 
 test {
 	useTestNG()
 }
+//implementation 'com.thoughtworks.xstream:xstream-distribution:1.4.13'
+//implementation 'com.thoughtworks.xstream:xstream:1.4.13-java7'
