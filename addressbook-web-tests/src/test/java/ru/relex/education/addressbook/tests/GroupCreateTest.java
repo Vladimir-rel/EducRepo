@@ -40,8 +40,6 @@ public class GroupCreateTest extends TestBase{
       String xml = "";
       String line = reader.readLine();
       while (line != null) {
-        //String[] split = line.split(";");
-        //list.add(new Object[] {new GroupData().withName(split[0]).withHeader(split[1]).withHeader(split[2])});
         xml += line;
         line = reader.readLine();
       }
@@ -58,8 +56,6 @@ public class GroupCreateTest extends TestBase{
       String json = "";
       String line = reader.readLine();
       while (line != null) {
-        //String[] split = line.split(";");
-        //list.add(new Object[] {new GroupData().withName(split[0]).withHeader(split[1]).withHeader(split[2])});
         json += line;
         line = reader.readLine();
       }
