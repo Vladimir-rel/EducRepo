@@ -6,30 +6,38 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
+  private final Properties prorerties;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
-  private GroupsHelper groupHelperr;
-  private ContactsHelper contactHelperr;
+  private GroupsHelper groupHelper;
+  private ContactsHelper contactHelper;
   String browser;
   WebDriver wd;
 
-  public ApplicationManager(String browser) {
+  public ApplicationManager(String browser) throws IOException {
     this.browser = browser;
+    prorerties = new Properties();
   }
 
   public GroupsHelper group() {
-    return groupHelperr;
+    return groupHelper;
   }
 
   public ContactsHelper contact() {
-    return contactHelperr;
+    return contactHelper;
   }
 
-  public void init() throws InterruptedException {
+  public void init() throws InterruptedException, IOException {
+    String target = System.getProperty("target", "local");
+    prorerties.load(new FileReader(new File(String.format("src/test/resources/%s.prorerties", target))));
     if (browser == BrowserType.CHROME){
       wd = new ChromeDriver();
     } else if (browser == BrowserType.FIREFOX) {
@@ -38,13 +46,12 @@ public class ApplicationManager {
       wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/");
-    groupHelperr = new GroupsHelper(wd);
-    contactHelperr = new ContactsHelper(wd);
+    wd.get(prorerties.getProperty("web.baseUrl"));
+    groupHelper = new GroupsHelper(wd);
+    contactHelper = new ContactsHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
-    //TimeUnit.SECONDS.sleep(5);
-    sessionHelper.login("admin", "secret");
+    sessionHelper.login(prorerties.getProperty("web.adminLogin"), prorerties.getProperty("web.adminPassword"));
   }
 
   public void stop() {

@@ -16,5 +16,21 @@ dependencies{
 test {
 	useTestNG()
 }
-//implementation 'com.thoughtworks.xstream:xstream-distribution:1.4.13'
-//implementation 'com.thoughtworks.xstream:xstream:1.4.13-java7'
+
+task testGroups (type: Test) {
+	useTestNG() {
+		suites 'src/test/resources/testng-groups.xml'
+	}
+}
+
+task testContacts (type: Test) {
+	useTestNG() {
+		suites 'src/test/resources/testng-contacts.xml'
+	}
+	if (project.hasProperty('browser')) {
+		systemProperty 'browser', "${browser}"
+	}
+	if (project.hasProperty('target')) {
+		systemProperty 'target', "${target}"
+	}
+}
