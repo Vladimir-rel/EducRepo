@@ -1,0 +1,52 @@
+<list>
+  <group>
+    <name>test 0</name>
+    <header>header 0</header>
+    <fooret>footer 0</fooret>
+  </group>
+  <group>
+    <name>test 1</name>
+    <header>header 1</header>
+    <fooret>footer 1</fooret>
+  </group>
+  <group>
+    <name>test 2</name>
+    <header>header 2</header>
+    <fooret>footer 2</fooret>
+  </group>
+  <group>
+    <name>test 3</name>
+    <header>header 3</header>
+    <fooret>footer 3</fooret>
+  </group>
+  <group>
+    <name>test 4</name>
+    <header>header 4</header>
+    <fooret>footer 4</fooret>
+  </group>
+  <group>
+    <name>test 5</name>
+    <header>header 5</header>
+    <fooret>footer 5</fooret>
+  </group>
+  <group>
+    <name>test 6</name>
+    <header>header 6</header>
+    <fooret>footer 6</fooret>
+  </group>
+  <group>
+    <name>test 7</name>
+    <header>header 7</header>
+    <fooret>footer 7</fooret>
+  </group>
+  <group>
+    <name>test 8</name>
+    <header>header 8</header>
+    <fooret>footer 8</fooret>
+  </group>
+  <group>
+    <name>test 9</name>
+    <header>header 9</header>
+    <fooret>footer 9</fooret>
+  </group>
+</list>
