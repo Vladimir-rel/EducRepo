@@ -20,6 +20,8 @@ public class ApplicationManager {
   String browser;
   WebDriver wd;
 
+  DbHelper dbHelper;
+
   public ApplicationManager(String browser) {
     this.browser = browser;
     prorerties = new Properties();
@@ -33,10 +35,15 @@ public class ApplicationManager {
     return contactHelper;
   }
 
+  public DbHelper db() {
+    return dbHelper;
+  }
+
   public void init() throws InterruptedException, IOException {
     String target = System.getProperty("target", "local");
     prorerties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
+    dbHelper = new DbHelper();
     if (browser.equals(BrowserType.CHROME)){
       wd = new ChromeDriver();
     } else if (browser.equals(BrowserType.FIREFOX)) {
@@ -50,6 +57,7 @@ public class ApplicationManager {
     contactHelper = new ContactsHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get(prorerties.getProperty("web.baseUrl"));
     sessionHelper.login(prorerties.getProperty("web.adminLogin"), prorerties.getProperty("web.adminPassword"));

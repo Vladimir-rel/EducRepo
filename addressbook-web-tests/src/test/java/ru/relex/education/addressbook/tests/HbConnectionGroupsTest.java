@@ -11,7 +11,7 @@ import ru.relex.education.addressbook.model.GroupData;
 
 import java.util.List;
 
-public class HbConnectionTest {
+public class HbConnectionGroupsTest {
   private SessionFactory sessionFactory;
 
   @BeforeClass

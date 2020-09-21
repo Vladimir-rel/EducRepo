@@ -1,31 +1,75 @@
 package ru.relex.education.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
-  @Expose
-  private String firstName;
-  @Expose
-  private String lastName;
-  private String company;
-  @Expose
-  private String address;
-  @Expose
-  private String homePhone;
-  private String mobilePhone;
-  private String workPhone;
-  private String allPhone;
-  @Expose
-  private String eMail1;
-  private String eMail2;
-  private String eMail3;
-  private String eMailAll;
-  private String group;
+
+  @Id
+  @Column(name = "id")
   private int id = 0;
-  private File photo;
+
+  @Expose
+  @Column(name = "firstName")
+  private String firstName;
+
+  @Expose
+  @Column(name = "lastName")
+  private String lastName;
+
+  @Column(name = "company")
+  private String company;
+
+  @Expose
+  @Column(name = "address")
+  @Type(type = "text")
+  private String address;
+
+  @Expose
+  @Column(name = "home")
+  @Type(type = "text")
+  private String homePhone;
+
+  @Column(name = "mobile")
+  @Type(type = "text")
+  private String mobilePhone;
+
+  @Column(name = "work")
+  @Type(type = "text")
+  private String workPhone;
+  @Transient
+  private String allPhone;
+
+  @Expose
+  @Column(name = "email")
+  @Type(type = "text")
+  private String eMail1;
+
+  @Column(name = "email2")
+  @Type(type = "text")
+  private String eMail2;
+
+  @Column(name = "email3")
+  @Type(type = "text" )
+  //@ManyToOne(optional=false)
+  //@JoinColumn(name = "candidate_id", insertable=false, updatable=false)
+  private String eMail3;
+
+  @Transient
+  private String eMailAll;
+
+  @Transient
+  private String group;
+
+  @Column(name = "photo")
+  @Type(type = "text" )
+  private String photo;
 
   public ContactData withFirstName(String firstName) {
     this.firstName = firstName;
@@ -97,7 +141,7 @@ public class ContactData {
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -149,15 +193,7 @@ public class ContactData {
 
   public String getEmail1() { return eMail1; }
 
-  public File getPhoto() { return photo; }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            " id='" + id + '\'' +
-            ", firstName='" + firstName + '\'' +
-            '}';
-  }
+  public File getPhoto() { return new File(photo); }
 
   @Override
   public boolean equals(Object o) {
@@ -171,5 +207,14 @@ public class ContactData {
   @Override
   public int hashCode() {
     return Objects.hash(firstName, id);
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
   }
 }
