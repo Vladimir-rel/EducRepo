@@ -23,8 +23,6 @@ import static org.junit.Assert.*;
 
 public class ContactCreateTest extends TestBase {
 
-  Logger logger = LoggerFactory.getLogger(GroupCreateTest.class);
-
   @DataProvider
   public Iterator<Object[]> validContactsJson() throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
@@ -42,7 +40,7 @@ public class ContactCreateTest extends TestBase {
   //@Test(enabled=false)
   @Test(dataProvider = "validContactsJson")
   public void testContactCreation(ContactData contact) {
-    logger.info("Start test testContactCreation");
+
     app.goTo().contactPage();
     Contacts before = app.contact().all();
     File photo = new File("src/test/resources/1.jpg");
@@ -53,6 +51,5 @@ public class ContactCreateTest extends TestBase {
     assertThat(after.size(), equalTo(before.size() + 1));
     //compare sets
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()))));
-    logger.info("Stop test testContactCreation");
   }
 }

@@ -36,6 +36,7 @@ public class ApplicationManager {
   public void init() throws InterruptedException, IOException {
     String target = System.getProperty("target", "local");
     prorerties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
     if (browser.equals(BrowserType.CHROME)){
       wd = new ChromeDriver();
     } else if (browser.equals(BrowserType.FIREFOX)) {

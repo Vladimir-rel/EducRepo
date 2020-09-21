@@ -73,7 +73,7 @@ public class GroupDataGenerator {
   private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
     try (Writer writer = new FileWriter(file)) {
       for (GroupData group : groups) {
-        writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooret()));
+        writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
       }
     }
   }
@@ -83,7 +83,7 @@ public class GroupDataGenerator {
     for (int i = 0; i < count; i++) {
       groups.add(new GroupData().withName(String.format("test %s", i))
               .withHeader(String.format("header %s", i))
-              .withFooret(String.format("footer %s", i)));
+              .withFooter(String.format("footer %s", i)));
     }
     return groups;
   }
