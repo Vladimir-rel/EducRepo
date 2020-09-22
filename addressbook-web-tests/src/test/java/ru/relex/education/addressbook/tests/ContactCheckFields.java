@@ -15,7 +15,7 @@ public class ContactCheckFields extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().contactPage();
-    if (app.contact().—Åount() == 0) {
+    if (app.contact().Òount() == 0) {
       app.contact().create(new ContactData().withFirstName("First Name1")
               .withLastName("Last Name1")
               .withCompany("Company 1")

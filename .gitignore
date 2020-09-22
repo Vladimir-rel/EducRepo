@@ -1,2 +1,3 @@
 /.idea/misc.xml
 /sandbox/build/classes/java/main/*.class
+/addressbook-web-tests/build/resources/test/logback.xml

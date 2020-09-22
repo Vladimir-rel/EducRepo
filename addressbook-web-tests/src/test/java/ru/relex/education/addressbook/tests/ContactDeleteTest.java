@@ -14,7 +14,7 @@ public class ContactDeleteTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().contactPage();
-    if (app.contact().сount() == 0) {
+    if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData().withFirstName("First Name1")
               .withLastName("Last Name1").withCompany("Company 1")
               .withHomePhone("111").withMobilePhone("222").withWorkPhone("333"));
@@ -23,12 +23,10 @@ public class ContactDeleteTest extends TestBase {
 
   @Test
   public void testContactDelete() throws InterruptedException {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedContact = before.iterator().next();
     app.contact().delete(deletedContact);
-    Contacts after = app.contact().all();
-    //compare sets count
-    assertThat(after.size(), equalTo(before.size() - 1));
+    Contacts after = app.db().contacts();
     //compare sets
     assertThat(after, equalTo(before.without(deletedContact)));
   }

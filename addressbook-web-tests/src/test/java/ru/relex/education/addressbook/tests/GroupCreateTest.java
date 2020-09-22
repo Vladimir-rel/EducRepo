@@ -68,11 +68,9 @@ public class GroupCreateTest extends TestBase{
   @Test(dataProvider = "validGroupsJson")
   public void testGropCreation(GroupData group) {
     app.goTo().groupPage();
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     app.group().create(group);
-    //compare sets count
-    assertThat(app.group().count(), equalTo(before.size() + 1));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
     //set in new group ID for before set and compare sets
     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
@@ -80,12 +78,10 @@ public class GroupCreateTest extends TestBase{
   @Test
   public void testBadGropCreation() {
     app.goTo().groupPage();
-    Groups before = app.group().all();
-    GroupData group = new GroupData().withName("test1'");
+    Groups before = app.db().groups();
+    GroupData group = new GroupData().withName("test1'").withHeader("test header'").withFooter("test footer'");
     app.group().create(group);
-    //compare sets count
-    assertThat(app.group().count(), equalTo(before.size()));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
     //set in new group ID for before set and compare sets
     assertThat(after, equalTo(before));
 

@@ -14,22 +14,25 @@ public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().contactPage();
-    if (app.contact().сount() == 0) {
-      app.contact().create(new ContactData().withFirstName("First Name1").withLastName("Last Name1").withCompany("Company 1").withHomePhone("111").withMobilePhone("222").withWorkPhone("333"));
+    if (app.db().contacts().size() == 0) {
+      app.contact().create(new ContactData().withFirstName("First Name1")
+              .withLastName("Last Name1")
+              .withCompany("Company 1")
+              .withHomePhone("111")
+              .withMobilePhone("222")
+              .withWorkPhone("333"));
     }
   }
 
   @Test
   public void testContactModification() throws InterruptedException {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId())
             .withFirstName("First Name1").withLastName("Last Name1").withCompany("Company 1")
             .withHomePhone("111").withMobilePhone("222").withWorkPhone("333");
     app.contact().modify(contact);
-    Contacts after = app.contact().all();
-    //compare sets count
-    assertThat(after.size(), equalTo(before.size()));
+    Contacts after = app.db().contacts();
     //compare sets
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }

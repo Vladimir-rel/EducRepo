@@ -2,10 +2,13 @@ package ru.relex.education.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
+import ru.relex.education.addressbook.tests.ContactPhoneTests;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "addressbook")
@@ -16,60 +19,61 @@ public class ContactData {
   private int id = 0;
 
   @Expose
-  @Column(name = "firstName")
-  private String firstName;
+  @Column(name = "firstname")
+  private String firstName="";
 
   @Expose
-  @Column(name = "lastName")
-  private String lastName;
+  @Column(name = "lastname")
+  private String lastName="";
 
   @Column(name = "company")
-  private String company;
+  private String company="";
 
   @Expose
   @Column(name = "address")
   @Type(type = "text")
-  private String address;
+  private String address="";
 
   @Expose
   @Column(name = "home")
   @Type(type = "text")
-  private String homePhone;
+  private String homePhone="";
 
   @Column(name = "mobile")
   @Type(type = "text")
-  private String mobilePhone;
+  private String mobilePhone="";
 
   @Column(name = "work")
   @Type(type = "text")
-  private String workPhone;
+  private String workPhone="";
+
   @Transient
-  private String allPhone;
+  private String allPhone="";
 
   @Expose
   @Column(name = "email")
   @Type(type = "text")
-  private String eMail1;
+  private String eMail1="";
 
   @Column(name = "email2")
   @Type(type = "text")
-  private String eMail2;
+  private String eMail2="";
 
   @Column(name = "email3")
   @Type(type = "text" )
   //@ManyToOne(optional=false)
   //@JoinColumn(name = "candidate_id", insertable=false, updatable=false)
-  private String eMail3;
+  private String eMail3="";
 
   @Transient
-  private String eMailAll;
+  private String eMailAll="";
 
   @Transient
   private String group;
 
   @Column(name = "photo")
   @Type(type = "text" )
-  private String photo;
+  private String photo="";
 
   public ContactData withFirstName(String firstName) {
     this.firstName = firstName;
@@ -174,7 +178,50 @@ public class ContactData {
   }
 
   public String getAllPhone() {
-    return allPhone;
+    //return allPhone;
+    return  Arrays.asList(homePhone, mobilePhone, workPhone)
+            .stream().filter((s) -> ! s.equals(""))
+            .collect(Collectors.joining(""));
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", company='" + company + '\'' +
+            ", address='" + address + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", eMail1='" + eMail1 + '\'' +
+            ", eMail2='" + eMail2 + '\'' +
+            ", eMail3='" + eMail3 + '\'' +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id &&
+            Objects.equals(firstName, that.firstName) &&
+            Objects.equals(lastName, that.lastName) &&
+            Objects.equals(company, that.company) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(homePhone, that.homePhone) &&
+            Objects.equals(mobilePhone, that.mobilePhone) &&
+            Objects.equals(workPhone, that.workPhone) &&
+            Objects.equals(eMail1, that.eMail1) &&
+            Objects.equals(eMail2, that.eMail2) &&
+            Objects.equals(eMail3, that.eMail3);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstName, lastName, company, address, homePhone, mobilePhone, workPhone, eMail1, eMail2, eMail3);
   }
 
   public String getGroup() {
@@ -193,28 +240,13 @@ public class ContactData {
 
   public String getEmail1() { return eMail1; }
 
-  public File getPhoto() { return new File(photo); }
+  public File getPhoto() {
+    try{
+      return new File(photo);
+    } catch (NullPointerException ex) {
+      return null;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return Objects.equals(firstName, that.firstName) &&
-            Objects.equals(id, that.id);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(firstName, id);
-  }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
-  }
 }

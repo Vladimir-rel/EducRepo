@@ -33,22 +33,19 @@ public class ContactCreateTest extends TestBase {
       line = reader.readLine();
     }
     Gson gson = new Gson();
-    List<ContactData> groups = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType()); // List<GroupData>.class
-    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType()); // List<GroupData>.class
+    return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
   //@Test(enabled=false)
   @Test(dataProvider = "validContactsJson")
   public void testContactCreation(ContactData contact) {
-
     app.goTo().contactPage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     File photo = new File("src/test/resources/1.jpg");
     contact.withPhoto(photo);
     app.contact().create(contact);
-    Contacts after = app.contact().all();
-    //compare sets count
-    assertThat(after.size(), equalTo(before.size() + 1));
+    Contacts after = app.db().contacts();
     //compare sets
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()))));
   }
