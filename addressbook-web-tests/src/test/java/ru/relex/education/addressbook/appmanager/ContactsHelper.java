@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.relex.education.addressbook.model.ContactData;
 import ru.relex.education.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 
 public class ContactsHelper extends HelperBase {
@@ -32,7 +33,7 @@ public class ContactsHelper extends HelperBase {
     type(By.name("email"), contactData.getEmail1());
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
-    if (contactData.getPhoto().exists()) {
+    if (contactData.getPhotoPath() !=null && contactData.getPhotoPath() != "") {
       attach(By.name("photo"), contactData.getPhoto());
     }
 

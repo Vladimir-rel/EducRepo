@@ -248,5 +248,7 @@ public class ContactData {
     }
 
   }
-
+  public String getPhotoPath() {
+    return photo;
+  }
 }
