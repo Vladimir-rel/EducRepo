@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.relex.education.addressbook.model.ContactData;
 import ru.relex.education.addressbook.model.Contacts;
+import ru.relex.education.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,11 +41,12 @@ public class ContactCreateTest extends TestBase {
   //@Test(enabled=false)
   @Test(dataProvider = "validContactsJson")
   public void testContactCreation(ContactData contact) {
+    Groups groups = app.db().groups();
     app.goTo().contactPage();
     Contacts before = app.db().contacts();
     File photo = new File("src/test/resources/1.jpg");
     contact.withPhoto(photo);
-    app.contact().create(contact);
+    app.contact().create(contact.inGroup(groups.iterator().next()));
     Contacts after = app.db().contacts();
     //compare sets
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()))));

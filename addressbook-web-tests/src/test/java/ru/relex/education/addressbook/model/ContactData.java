@@ -1,13 +1,16 @@
 package ru.relex.education.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 import ru.relex.education.addressbook.tests.ContactPhoneTests;
 
 import javax.persistence.*;
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -68,12 +71,13 @@ public class ContactData {
   @Transient
   private String eMailAll="";
 
-  @Transient
-  private String group;
-
   @Column(name = "photo")
   @Type(type = "text" )
   private String photo="";
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public ContactData withFirstName(String firstName) {
     this.firstName = firstName;
@@ -92,11 +96,6 @@ public class ContactData {
 
   public ContactData withAddress(String address) {
     this.address = address;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -224,8 +223,8 @@ public class ContactData {
     return Objects.hash(id, firstName, lastName, company, address, homePhone, mobilePhone, workPhone, eMail1, eMail2, eMail3);
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public int getId() {
@@ -246,9 +245,14 @@ public class ContactData {
     } catch (NullPointerException ex) {
       return null;
     }
-
   }
+
   public String getPhotoPath() {
     return photo;
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }

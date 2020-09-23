@@ -7,11 +7,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.relex.education.addressbook.model.ContactData;
 import ru.relex.education.addressbook.model.Contacts;
+import ru.relex.education.addressbook.model.GroupData;
+import ru.relex.education.addressbook.model.Groups;
 
-import java.io.File;
 import java.util.List;
 
+import static org.testng.Assert.*;
+
 public class ContactsHelper extends HelperBase {
+
+  GroupsHelper groupsHelper;
 
   public ContactsHelper(WebDriver wd) {
     super(wd);
@@ -40,10 +45,11 @@ public class ContactsHelper extends HelperBase {
     int contactId = 0;
 
     if (creation){
-      if (contactData.getGroup() == null) {
+      if (contactData.getGroups().size() == 0) {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
       } else {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
       }
     } else {
       contactId = Integer.parseInt(wd.findElement(By.xpath("//input[@name='id']")).getAttribute("value"));
@@ -172,5 +178,13 @@ public class ContactsHelper extends HelperBase {
             .withEmail1(email1)
             .withEmail2(email2)
             .withEmail3(email3);
+  }
+
+  public void addGroup(ContactData changeContact, GroupData group) {
+    selectContact(changeContact.getId());
+    click(By.xpath("//div/select[@name='to_group']"));
+    click(By.xpath(String.format("//div/select/option[@value='%d']", group.getId())));
+    click(By.xpath("//div/input[@value='Add to']"));
+    returnToContactPage();
   }
 }

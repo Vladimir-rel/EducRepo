@@ -38,4 +38,14 @@ public class Contacts extends ForwardingSet<ContactData> {
     contacts.remove(contact);
     return contacts;
   }
+
+  public ContactData getFreshContact(ContactData contact) {
+    ContactData newContact = null;
+    for (ContactData cont : this.delegate) {
+      if (cont.getId() == contact.getId()) {
+        newContact = cont;
+      }
+    }
+    return newContact;
+  }
 }
