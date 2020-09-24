@@ -23,7 +23,7 @@ public class ApplicationManager {
     prorerties = new Properties();
   }
 
-  public void init() throws InterruptedException, IOException {
+  public void init() throws IOException {
     String target = System.getProperty("target", "local");
     prorerties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
@@ -39,10 +39,17 @@ public class ApplicationManager {
 
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get(prorerties.getProperty("web.baseUrl"));
-    //sessionHelper.login(prorerties.getProperty("web.adminLogin"), prorerties.getProperty("web.adminPassword"));
   }
 
   public void stop() {
     wd.quit();
+  }
+
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
+
+  public  String getProperty (String key) {
+    return prorerties.getProperty(key);
   }
 }
