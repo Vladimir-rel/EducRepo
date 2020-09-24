@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 import ru.relex.education.addressbook.model.ContactData;
 import ru.relex.education.addressbook.model.Contacts;
 import ru.relex.education.addressbook.model.GroupData;
-import ru.relex.education.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class ContactsHelper extends HelperBase {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
       } else {
         assertTrue(contactData.getGroups().size() == 1);
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup().getName());
       }
     } else {
       contactId = Integer.parseInt(wd.findElement(By.xpath("//input[@name='id']")).getAttribute("value"));
@@ -180,11 +179,38 @@ public class ContactsHelper extends HelperBase {
             .withEmail3(email3);
   }
 
-  public void addGroup(ContactData changeContact, GroupData group) {
+  public void addContactInGroup(ContactData changeContact, GroupData group) {
     selectContact(changeContact.getId());
     click(By.xpath("//div/select[@name='to_group']"));
     click(By.xpath(String.format("//div/select/option[@value='%d']", group.getId())));
     click(By.xpath("//div/input[@value='Add to']"));
     returnToContactPage();
+  }
+
+  public void delContactFromGroupUI(int changeContactId, int delGroupId) {
+    click(By.xpath("//form/select[@name='group']"));
+    click(By.xpath(String.format("//form/select/option[@value='%d']", delGroupId)));
+    selectContact(changeContactId);
+    click(By.xpath("//div/input[@name='remove']"));
+    returnToContactPage();
+  }
+
+  public ContactData getFreshContact(int contactId, Contacts contacts) {
+    for (ContactData contact : contacts) {
+      if (contact.getId() == contactId) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
+  public boolean isContactNotInGroup(int changeContactId, GroupData groupDel, Contacts after) {
+    ContactData freshContact = getFreshContact(changeContactId, after);
+    for (GroupData contactGroup : freshContact.getGroups()) {
+      if (contactGroup.getId() == groupDel.getId()) {
+        return false;
+      }
+    }
+    return true;
   }
 }

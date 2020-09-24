@@ -71,6 +71,9 @@ public class ContactData {
   @Transient
   private String eMailAll="";
 
+  @Transient
+  private GroupData group;
+
   @Column(name = "photo")
   @Type(type = "text" )
   private String photo="";
@@ -254,5 +257,14 @@ public class ContactData {
   public ContactData inGroup(GroupData group) {
     groups.add(group);
     return this;
+  }
+
+  public ContactData withGroup(GroupData group) {
+    this.group = group;
+    return this;
+  }
+
+  public GroupData getGroup() {
+    return this.group;
   }
 }
