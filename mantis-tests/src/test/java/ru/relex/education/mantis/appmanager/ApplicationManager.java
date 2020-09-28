@@ -20,6 +20,7 @@ public class ApplicationManager {
   private WebDriver wd;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHelper mh;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -52,6 +53,13 @@ public class ApplicationManager {
     return registrationHelper;
   }
 
+  public MailHelper mail() {
+    if (mh == null) {
+      mh = new MailHelper(this);
+    }
+    return mh;
+  }
+
   public FtpHelper ftp() {
     if (ftp == null) {
       ftp = new FtpHelper(this);
@@ -71,7 +79,7 @@ public class ApplicationManager {
         throw new ParameterException("Unsupported browser");
       }
       wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-      wd.get(prorerties.getProperty("web.baseUrl"));
+      //wd.get(prorerties.getProperty("web.baseUrl"));
     }
     return wd;
   }

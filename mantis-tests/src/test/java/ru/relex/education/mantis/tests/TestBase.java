@@ -13,7 +13,7 @@ public class TestBase {
   protected static ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   @BeforeSuite
-  public void setUp() throws InterruptedException, IOException {
+  public void setUp() throws IOException {
     app.init();
     app.ftp().upload(new File("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.bac");
   }
