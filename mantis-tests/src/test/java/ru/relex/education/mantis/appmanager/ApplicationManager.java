@@ -1,7 +1,6 @@
 package ru.relex.education.mantis.appmanager;
 
 import com.beust.jcommander.ParameterException;
-import org.apache.commons.net.ftp.FTPClient;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,12 +14,14 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+
   private final Properties prorerties;
   String browser;
   private WebDriver wd;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mh;
+  private JamesHelper jamesHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -82,5 +83,12 @@ public class ApplicationManager {
       //wd.get(prorerties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public JamesHelper james() {
+    if (jamesHelper == null) {
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
   }
 }
