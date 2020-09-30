@@ -13,6 +13,7 @@ dependencies{
 	implementation 'org.subethamail:subethasmtp:3.1.7'
 	implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'
 	implementation 'ch.qos.logback:logback-classic:1.1.5'
+	implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 }
 
 test {
@@ -29,3 +30,22 @@ test {
 	}
 }
 
+buildscript{
+	repositories{
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'no.nils:wsdl2java:0.12'
+	}
+}
+
+apply plugin: 'no.nils.wsdl2java'
+
+wsdl2java {
+	//generatedWsdlDir = file("src/main/java")
+	wsdlDir = file("src/main/resources") // define to support incremental build
+	wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+						  ['src/main/resources/geoipservice.wsdl'],
+	]
+}
