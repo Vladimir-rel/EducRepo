@@ -2,9 +2,7 @@
 <suite name="Suite1" verbose="1">
     <test name="Groups">
         <classes>
-            <class name="ru.relex.education.addressbook.tests.GroupCreateTest" />
             <class name="ru.relex.education.addressbook.tests.GroupModificationTest" />
-            <class name="ru.relex.education.addressbook.tests.GroupDeleteTest" />
         </classes>
     </test>
 </suite>
