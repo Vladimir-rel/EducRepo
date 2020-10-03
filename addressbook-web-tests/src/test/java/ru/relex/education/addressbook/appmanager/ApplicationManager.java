@@ -1,6 +1,8 @@
 package ru.relex.education.addressbook.appmanager;
 import com.beust.jcommander.ParameterException;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -30,18 +32,6 @@ public class ApplicationManager {
   public ApplicationManager(String browser) {
     this.browser = browser;
     prorerties = new Properties();
-  }
-
-  public GroupsHelper group() {
-    return groupHelper;
-  }
-
-  public ContactsHelper contact() {
-    return contactHelper;
-  }
-
-  public DbHelper db() {
-    return dbHelper;
   }
 
   public void init() throws InterruptedException, IOException {
@@ -77,6 +67,22 @@ public class ApplicationManager {
 
   public void stop() {
     wd.quit();
+  }
+
+  public GroupsHelper group() {
+    return groupHelper;
+  }
+
+  public ContactsHelper contact() {
+    return contactHelper;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
+  }
+
+  public byte[] takeScreenshot() {
+    return ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
   }
 
   public NavigationHelper goTo() {
